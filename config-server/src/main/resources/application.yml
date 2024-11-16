@@ -1,0 +1,17 @@
+server:
+    port: 8888
+
+spring:
+    application:
+        name: config-server
+    cloud:
+        config:
+            server:
+                git:
+                    uri: https://github.com/YassineSlaoui/Config-Repo-for-IGL5-TP.git
+                    clone-on-start: true
+                    username: ${GIT_USERNAME}
+                    password: ${GIT_PASSWORD}
+                    search-paths: '{application}'
+        compatibility-verifier:
+            enabled: false
