@@ -10,8 +10,8 @@ spring:
                 git:
                     uri: https://github.com/YassineSlaoui/Config-Repo-for-IGL5-TP.git
                     clone-on-start: true
-                    username: ${GIT_USERNAME}
-                    password: ${GIT_PASSWORD}
+#                    username: ${GIT_USERNAME}
+#                    password: ${GIT_PASSWORD}
                     search-paths: '{application}'
         compatibility-verifier:
             enabled: false
