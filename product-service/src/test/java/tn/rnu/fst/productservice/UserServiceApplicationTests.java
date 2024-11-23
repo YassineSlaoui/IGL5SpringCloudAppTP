@@ -1,4 +1,4 @@
-package tn.rnu.fst.userservice;
+package tn.rnu.fst.productservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

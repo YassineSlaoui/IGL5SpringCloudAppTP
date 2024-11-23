@@ -1,4 +1,4 @@
-package tn.rnu.fst.userservice.entity;
+package tn.rnu.fst.productservice.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

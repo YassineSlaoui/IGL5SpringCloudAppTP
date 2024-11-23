@@ -1,9 +1,9 @@
-package tn.rnu.fst.userservice.service;
+package tn.rnu.fst.productservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import tn.rnu.fst.userservice.entity.Product;
-import tn.rnu.fst.userservice.repository.ProductRepository;
+import tn.rnu.fst.productservice.entity.Product;
+import tn.rnu.fst.productservice.repository.ProductRepository;
 
 import java.util.List;
 import java.util.Optional;

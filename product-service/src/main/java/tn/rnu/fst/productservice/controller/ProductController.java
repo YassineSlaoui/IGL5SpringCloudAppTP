@@ -1,14 +1,15 @@
-package tn.rnu.fst.userservice.controller;
+package tn.rnu.fst.productservice.controller;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tn.rnu.fst.userservice.entity.Product;
-import tn.rnu.fst.userservice.service.ProductService;
+import tn.rnu.fst.productservice.entity.Product;
+import tn.rnu.fst.productservice.service.ProductService;
 
 import java.util.List;
 
@@ -25,7 +26,9 @@ public class ProductController {
      * URL: http://localhost:8081/products
      */
     @GetMapping
-    @CircuitBreaker(name = "productService")
+    @Retry(name = "myRetry", fallbackMethod = "fallback")
+    @RateLimiter(name = "myRateLimiter", fallbackMethod = "fallback")
+    @CircuitBreaker(name = "productService", fallbackMethod = "fallback")
     public List<Product> getAllProducts() {
         // Retourner tous les produits
         return productService.getAllProducts();
@@ -51,9 +54,9 @@ public class ProductController {
      * URL: http://localhost:8081/products
      * Corps de la requête (JSON):
      * {
-     *   "name": "Nom du produit",
-     *   "description": "Description du produit",
-     *   "price": 10.0
+     * "name": "Nom du produit",
+     * "description": "Description du produit",
+     * "price": 10.0
      * }
      */
     @PostMapping
@@ -71,9 +74,9 @@ public class ProductController {
      * Exemple: http://localhost:8081/products/1
      * Corps de la requête (JSON):
      * {
-     *   "name": "Nouveau nom du produit",
-     *   "description": "Nouvelle description du produit",
-     *   "price": 15.0
+     * "name": "Nouveau nom du produit",
+     * "description": "Nouvelle description du produit",
+     * "price": 15.0
      * }
      */
     @PutMapping("/{id}")
@@ -102,7 +105,14 @@ public class ProductController {
     private String port;
 
     @GetMapping("/microservice-info")
+    @Retry(name = "myRetry", fallbackMethod = "fallback")
+    @RateLimiter(name = "myRateLimiter", fallbackMethod = "fallback")
+    @CircuitBreaker(name = "productService", fallbackMethod = "fallback")
     public String getMicroserviceInfo() {
         return "Product Microservice is up and running at port " + port;
+    }
+
+    public String fallback(Exception e) {
+        return "Too many requests. Please try again later.";
     }
 }

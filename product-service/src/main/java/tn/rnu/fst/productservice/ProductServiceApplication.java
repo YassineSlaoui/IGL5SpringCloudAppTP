@@ -1,4 +1,4 @@
-package tn.rnu.fst.userservice;
+package tn.rnu.fst.productservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
