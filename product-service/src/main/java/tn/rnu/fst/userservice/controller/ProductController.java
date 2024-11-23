@@ -3,6 +3,7 @@ package tn.rnu.fst.userservice.controller;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -95,5 +96,13 @@ public class ProductController {
         // Supprimer le produit avec l'ID spécifié
         boolean isDeleted = productService.deleteProduct(id);
         return isDeleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+    }
+
+    @Value("${server.port}")
+    private String port;
+
+    @GetMapping("/microservice-info")
+    public String getMicroserviceInfo() {
+        return "Product Microservice is up and running at port " + port;
     }
 }

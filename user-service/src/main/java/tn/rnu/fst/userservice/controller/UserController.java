@@ -1,6 +1,7 @@
 package tn.rnu.fst.userservice.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -78,6 +79,14 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Value("${server.port}")
+    private String port;
+
+    @GetMapping("/microservice-info")
+    public String getMicroserviceInfo() {
+        return "User Microservice is up and running at port " + port;
     }
 }
 
