@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import org.springframework.web.client.RestTemplate;
 import tn.rnu.fst.userservice.entity.User;
 import tn.rnu.fst.userservice.service.UserService;
 
@@ -16,6 +17,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final RestTemplate restTemplate;
 
     /**
      * Endpoint pour récupérer tous les utilisateurs.
@@ -25,7 +27,9 @@ public class UserController {
     @GetMapping
     @CircuitBreaker(name = "userService")
     public List<User> getAllUsers() {
-        return userService.getAllUsers();
+        var result = userService.getAllUsers();
+        result.addFirst(User.builder().username("User-Microservice running at port: " + port).build());
+        return result;
     }
 
     /**
@@ -87,6 +91,12 @@ public class UserController {
     @GetMapping("/microservice-info")
     public String getMicroserviceInfo() {
         return "User Microservice is up and running at port " + port;
+    }
+
+    @GetMapping("/products")
+    public String getUsers() {
+        String userServiceUrl = "http://product-microservice/products";
+        return restTemplate.getForObject(userServiceUrl, String.class);
     }
 }
 

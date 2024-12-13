@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import tn.rnu.fst.productservice.entity.Product;
 import tn.rnu.fst.productservice.service.ProductService;
 
@@ -19,6 +20,7 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService; // Injection du service produit
+    private final RestTemplate restTemplate;
 
     /**
      * Endpoint pour récupérer tous les produits.
@@ -30,8 +32,9 @@ public class ProductController {
     @RateLimiter(name = "myRateLimiter", fallbackMethod = "fallback")
     @CircuitBreaker(name = "productService", fallbackMethod = "fallback")
     public List<Product> getAllProducts() {
-        // Retourner tous les produits
-        return productService.getAllProducts();
+        var result = productService.getAllProducts();
+        result.add(Product.builder().name("Product-Microservice running at port: " + port).build());
+        return result;
     }
 
     /**
@@ -114,5 +117,11 @@ public class ProductController {
 
     public String fallback(Exception e) {
         return "Too many requests. Please try again later.";
+    }
+
+    @GetMapping("/users")
+    public String getUsers() {
+        String userServiceUrl = "http://user-microservice/users";
+        return restTemplate.getForObject(userServiceUrl, String.class);
     }
 }
