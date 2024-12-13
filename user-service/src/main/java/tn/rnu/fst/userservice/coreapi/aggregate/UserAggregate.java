@@ -24,10 +24,10 @@ public class UserAggregate {
     public UserAggregate(CreateUserCommand command) {
         // Publier un événement
         AggregateLifecycle.apply(UserCreatedEvent.builder()
-                .id(command.id())
-                .username(command.username())
-                .password(command.password())
-                .email(command.email())
+                .id(command.getId())
+                .username(command.getUsername())
+                .password(command.getPassword())
+                .email(command.getEmail())
                 .build());
     }
 

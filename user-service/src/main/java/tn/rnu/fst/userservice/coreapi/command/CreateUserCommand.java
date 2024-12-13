@@ -1,14 +1,15 @@
 package tn.rnu.fst.userservice.coreapi.command;
 
-import lombok.Builder;
+import lombok.*;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
+@Data
 @Builder
-public record CreateUserCommand(
-        @TargetAggregateIdentifier
-        String id,
-        String username,
-        String password,
-        String email
-) {
+@RequiredArgsConstructor
+public class CreateUserCommand {
+    @TargetAggregateIdentifier
+    private final String id;
+    private final String username;
+    private final String password;
+    private final String email;
 }

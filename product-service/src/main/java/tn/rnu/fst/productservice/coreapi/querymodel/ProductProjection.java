@@ -15,6 +15,6 @@ public class ProductProjection {
 
     @QueryHandler
     public Product handle(GetProductByIdQuery query) {
-        return productRepository.findById(query.id()).orElse(null);
+        return productRepository.findById(query.getId()).orElse(Product.builder().name("not found").build());
     }
 }

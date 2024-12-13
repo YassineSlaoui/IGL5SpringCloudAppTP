@@ -1,6 +1,12 @@
 package tn.rnu.fst.productservice.coreapi.query;
 
-public record GetProductByIdQuery(
-        String id
-) {
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+@Data
+@RequiredArgsConstructor
+@Builder
+public class GetProductByIdQuery {
+    private final String id;
 }

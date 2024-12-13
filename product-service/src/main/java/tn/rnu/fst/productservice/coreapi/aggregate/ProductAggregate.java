@@ -25,11 +25,11 @@ public class ProductAggregate {
     public ProductAggregate(CreateProductCommand command) {
         // Publier un événement
         AggregateLifecycle.apply(ProductCreatedEvent.builder()
-                .id(command.id())
-                .name(command.name())
-                .description(command.description())
-                .price(command.price())
-                .stock(command.stock())
+                .id(command.getId())
+                .name(command.getName())
+                .description(command.getDescription())
+                .price(command.getPrice())
+                .stock(command.getStock())
                 .build());
     }
 

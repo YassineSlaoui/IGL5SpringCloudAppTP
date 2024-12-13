@@ -45,7 +45,7 @@ public class ProductController {
      */
     @GetMapping("/{id}")
     @CircuitBreaker(name = "productService")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+    public ResponseEntity<Product> getProductById(@PathVariable String id) {
         // Retourner le produit avec l'ID spécifié
         Product product = productService.getProductById(id);
         return product != null ? ResponseEntity.ok(product) : ResponseEntity.notFound().build();
@@ -84,7 +84,7 @@ public class ProductController {
      */
     @PutMapping("/{id}")
     @CircuitBreaker(name = "productService")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
+    public ResponseEntity<Product> updateProduct(@PathVariable String id, @RequestBody Product product) {
         // Mettre à jour un produit existant
         Product updatedProduct = productService.updateProduct(id, product);
         return updatedProduct != null ? ResponseEntity.ok(updatedProduct) : ResponseEntity.notFound().build();
@@ -98,7 +98,7 @@ public class ProductController {
      */
     @DeleteMapping("/{id}")
     @CircuitBreaker(name = "productService")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable String id) {
         // Supprimer le produit avec l'ID spécifié
         boolean isDeleted = productService.deleteProduct(id);
         return isDeleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();

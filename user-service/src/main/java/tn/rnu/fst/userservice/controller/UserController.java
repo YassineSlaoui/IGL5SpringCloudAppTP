@@ -39,7 +39,7 @@ public class UserController {
      */
     @GetMapping("/{id}")
     @CircuitBreaker(name = "userService")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+    public ResponseEntity<User> getUserById(@PathVariable String id) {
         User user = userService.getUserById(id);
         if (user != null) {
             return ResponseEntity.ok(user);
@@ -65,7 +65,7 @@ public class UserController {
      */
     @PutMapping("/{id}")
     @CircuitBreaker(name = "userService")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+    public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User userDetails) {
         User updatedUser = userService.updateUser(id, userDetails);
         if (updatedUser != null) {
             return ResponseEntity.ok(updatedUser);
@@ -80,7 +80,7 @@ public class UserController {
      */
     @DeleteMapping("/{id}")
     @CircuitBreaker(name = "userService")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }

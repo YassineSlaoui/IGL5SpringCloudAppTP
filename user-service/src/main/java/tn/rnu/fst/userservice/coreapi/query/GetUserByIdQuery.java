@@ -1,6 +1,12 @@
 package tn.rnu.fst.userservice.coreapi.query;
 
-public record GetUserByIdQuery(
-        String id
-) {
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+@Data
+@RequiredArgsConstructor
+@Builder
+public class GetUserByIdQuery {
+    private final String id;
 }
