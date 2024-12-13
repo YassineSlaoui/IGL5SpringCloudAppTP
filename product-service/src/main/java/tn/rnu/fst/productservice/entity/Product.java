@@ -16,8 +16,8 @@ import java.io.Serializable;
 @Entity
 public class Product implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     private String name;
     private String description;
     private double price;

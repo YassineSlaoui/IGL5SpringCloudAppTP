@@ -6,7 +6,7 @@ import tn.rnu.fst.userservice.entity.User;
 
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, String> {
     User findByUsername(String username);
 }
 
