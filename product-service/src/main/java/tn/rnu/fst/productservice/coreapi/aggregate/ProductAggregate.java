@@ -35,10 +35,10 @@ public class ProductAggregate {
 
     @EventSourcingHandler
     public void on(ProductCreatedEvent event) {
-        this.id = event.id();
-        this.name = event.name();
-        this.description = event.description();
-        this.price = event.price();
-        this.stock = event.stock();
+        this.id = event.getId();
+        this.name = event.getName();
+        this.description = event.getDescription();
+        this.price = event.getPrice();
+        this.stock = event.getStock();
     }
 }

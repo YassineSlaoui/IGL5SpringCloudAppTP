@@ -1,13 +1,16 @@
 package tn.rnu.fst.productservice.coreapi.event;
 
 import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
+@Data
 @Builder
-public record ProductCreatedEvent(
-        String id,
-        String name,
-        String description,
-        double price,
-        int stock
-) {
+@RequiredArgsConstructor
+public class ProductCreatedEvent {
+    private final String id;
+    private final String name;
+    private final String description;
+    private final double price;
+    private final int stock;
 }
